@@ -1,68 +1,40 @@
 # fathom-store-ledger-bench
 
-`fathom-store-ledger-bench` treats databases as a local verification problem. The Swift implementation is intentionally narrow, but the fixtures and notes make the behavior explicit.
+`fathom-store-ledger-bench` keeps a focused Swift implementation around databases. The project goal is to develop a Swift command-oriented project for ledger scenarios with bounded scenario files, conflict explanations, and fixture-scale datasets.
 
-## Fathom Store Ledger Bench Checkpoints
+## Project Rationale
 
-Treat the compact fixture as the contract and the extended examples as a scratchpad. The code should stay boring enough that a change in behavior is obvious from the test output.
+The project exists to keep a narrow engineering decision visible and testable. For this repo, that decision is how index fit and constraint risk should influence a review result.
 
-## What This Is For
+## Fathom Store Ledger Bench Review Notes
 
-The repository exists to keep a technical idea small enough to reason about. The implementation avoids external dependencies where possible, then uses fixtures to make changes easy to review.
+The first comparison I would make is `index fit` against `constraint risk` because it shows where the rule is most opinionated.
 
-## Case Study
+## Feature Set
 
-The extended cases are not random smoke tests. `degraded` keeps pressure on the review path, while `recovery` shows the model when capacity and weight are strong enough to clear the threshold.
+- `fixtures/domain_review.csv` adds cases for index fit and join width.
+- `metadata/domain-review.json` records the same cases in structured form.
+- `config/review-profile.json` captures the read order and the two review questions.
+- `examples/fathom-store-ledger-walkthrough.md` walks through the case spread.
+- The Swift code includes a review path for `index fit` and `constraint risk`.
+- `docs/field-notes.md` explains the strongest and weakest cases.
 
-## Architecture Notes
+## Architecture
 
-The core is a scoring model over demand, capacity, latency, risk, and weight. That keeps schema shape, query checks, and fixture rows in one explicit decision path. The threshold is 163, with risk penalty 4, latency penalty 3, and weight bonus 5. The Swift project compiles a minimal command-line test harness against the local Windows SDK.
+The repository has two validation layers: the original compact policy fixture and the domain review fixture. They are separate so one can change without hiding failures in the other.
 
-## Useful Pieces
+The added Swift path is deliberately direct, with fixtures doing most of the explaining.
 
-- Models schema shape with deterministic scoring and explicit review decisions.
-- Uses fixture data to keep query checks changes visible in code review.
-- Includes extended examples for fixture rows, including `recovery` and `degraded`.
-- Documents constraint behavior tradeoffs in `docs/operations.md`.
-- Runs locally with a single verification command and no external credentials.
-
-## Local Workflow
+## Usage
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1
 ```
 
-This runs the language-level build or test path against the compact fixture set.
+## Test Command
 
-## Quality Gate
+The verifier is intentionally local. It should fail if the fixture score math, lane assignment, or language-specific test drifts.
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/audit.ps1
-```
+## Next Improvements
 
-The audit command checks repository structure and README constraints before it delegates to the verifier.
-
-## Project Layout
-
-- `src`: primary implementation
-- `tests`: verification harness
-- `fixtures`: compact golden scenarios
-- `examples`: expanded scenario set
-- `metadata`: project constants and verification metadata
-- `docs`: operations and extension notes
-- `scripts`: local verification and audit commands
-
-## Expansion Ideas
-
-- Add a comparison mode that shows how decisions change when one signal is adjusted.
-- Add a loader for `examples/extended_cases.csv` and promote selected cases into the language test suite.
-- Add a short report command that prints the score breakdown for a single scenario.
-- Add one more databases fixture that focuses on a malformed or borderline input.
-
-## Scope
-
-The scoring model is simple by design. More domain-specific behavior should be added through explicit adapters or extra fixture classes rather than hidden constants.
-
-## Tooling
-
-The only required setup is the local Swift toolchain. After cloning, stay in the repo root so fixture paths resolve correctly.
+This remains a local project with deterministic fixtures. It does not depend on credentials, hosted services, or live data. Future work should add richer malformed inputs before widening the public API.

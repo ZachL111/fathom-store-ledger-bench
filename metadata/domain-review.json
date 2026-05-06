@@ -1,0 +1,73 @@
+{
+  "repo": "fathom-store-ledger-bench",
+  "language": "Swift",
+  "category": "Databases",
+  "goal": "Develop a Swift command-oriented project for ledger scenarios with bounded scenario files, conflict explanations, and fixture-scale datasets.",
+  "review_model": {
+    "terms": [
+      "index fit",
+      "join width",
+      "constraint risk",
+      "plan drift"
+    ],
+    "lanes": [
+      "ship",
+      "watch",
+      "hold"
+    ],
+    "score": "signal * 2 + slack + confidence - drag * 3",
+    "purpose": "surface the domain-specific cases that need the most careful review"
+  },
+  "cases": [
+    {
+      "name": "baseline",
+      "focus": "index fit",
+      "signal": 73,
+      "slack": 26,
+      "drag": 8,
+      "confidence": 82,
+      "score": 230,
+      "lane": "ship"
+    },
+    {
+      "name": "stress",
+      "focus": "join width",
+      "signal": 62,
+      "slack": 33,
+      "drag": 32,
+      "confidence": 91,
+      "score": 152,
+      "lane": "ship"
+    },
+    {
+      "name": "edge",
+      "focus": "constraint risk",
+      "signal": 48,
+      "slack": 47,
+      "drag": 32,
+      "confidence": 69,
+      "score": 116,
+      "lane": "watch"
+    },
+    {
+      "name": "recovery",
+      "focus": "plan drift",
+      "signal": 59,
+      "slack": 30,
+      "drag": 13,
+      "confidence": 88,
+      "score": 197,
+      "lane": "ship"
+    },
+    {
+      "name": "stale",
+      "focus": "index fit",
+      "signal": 89,
+      "slack": 31,
+      "drag": 11,
+      "confidence": 55,
+      "score": 231,
+      "lane": "ship"
+    }
+  ]
+}
