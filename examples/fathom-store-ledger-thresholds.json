@@ -1,0 +1,17 @@
+{
+  "repo": "fathom-store-ledger-bench",
+  "thresholds": {
+    "signal": 2,
+    "slack": 1,
+    "confidence": 2,
+    "drag": 4,
+    "ship": 202,
+    "watch": 106
+  },
+  "terms": [
+    "index fit",
+    "join width",
+    "constraint risk",
+    "plan drift"
+  ]
+}
